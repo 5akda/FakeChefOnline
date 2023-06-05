@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "FakeChefOnline"
 include(":app")
 include(":core:design")
+include(":feature:home")
