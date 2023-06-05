@@ -11,7 +11,8 @@ private val darkColorPalette = darkColorScheme(
     secondary = Orange700,
     tertiary = Green,
     background = Hair,
-    surface = Hair
+    surface = Hair,
+    onPrimary = Hair
 )
 
 private val lightColorPalette = lightColorScheme(
@@ -19,7 +20,8 @@ private val lightColorPalette = lightColorScheme(
     secondary = Orange700,
     tertiary = Green,
     background = Cream,
-    surface = Cream
+    surface = Cream,
+    onPrimary = Cream
 )
 
 @Composable
