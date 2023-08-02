@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import iam5akda.fakechef.feature.home.HomeActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -18,13 +19,14 @@ class MainActivity : FragmentActivity() {
             it.setKeepOnScreenCondition { true }
         }
         super.onCreate(savedInstanceState)
-        navigateToHome()
+        processCheckApp()
     }
 
-    private fun navigateToHome() {
+    private fun processCheckApp() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 delay(1500L)
+                HomeActivity.navigate(this@MainActivity)
                 finish()
             }
         }
