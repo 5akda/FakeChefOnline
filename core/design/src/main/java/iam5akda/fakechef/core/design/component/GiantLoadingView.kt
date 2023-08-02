@@ -1,4 +1,4 @@
-package iam5akda.fakechef.core.component
+package iam5akda.fakechef.core.design.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import iam5akda.fakechef.core.design.theme.FakeChefTheme
-import iam5akda.fakechef.core.util.PhonePreviewDayAndNight
+import iam5akda.fakechef.core.design.util.PhonePreviewDayAndNight
 
 @Composable
 fun GiantLoadingView(

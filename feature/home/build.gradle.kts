@@ -13,7 +13,6 @@ android {
         minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -22,10 +21,6 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {
@@ -52,6 +47,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:${Versions.CORE_KTX}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE_RUNTIME_KTS}")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:${Versions.LIFECYCLE_RUNTIME_KTS}")
     implementation("androidx.activity:activity-compose:${Versions.ACTIVITY_COMPOSE}")
 
     implementation(platform("androidx.compose:compose-bom:${Versions.COMPOSE_BOM}"))
@@ -74,23 +70,14 @@ dependencies {
     implementation("com.google.dagger:hilt-android:${Versions.DAGGER_HILT}")
     kapt("com.google.dagger:hilt-android-compiler:${Versions.DAGGER_HILT}")
 
-    implementation("androidx.core:core-splashscreen:${Versions.SPLASH_SCREEN}")
+    implementation("androidx.navigation:navigation-compose:${Versions.NAVIGATION_COMPOSE}")
+
+    implementation("androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION_COMPOSE}")
 
     implementation(project(":core:design"))
+    implementation(project(":core:common"))
 }
 
 kapt {
     correctErrorTypes = true
-}
-
-private object Versions {
-    const val CORE_KTX = "1.9.0"
-    const val LIFECYCLE_RUNTIME_KTS = "2.6.1"
-    const val ACTIVITY_COMPOSE = "1.7.0"
-    const val COMPOSE_BOM = "2023.03.00"
-    const val JUNIT = "4.13.2"
-    const val ANDROID_JUNIT = "1.1.5"
-    const val ESPRESSO_CORE = "3.5.1"
-    const val DAGGER_HILT = "2.44.2"
-    const val SPLASH_SCREEN = "1.0.1"
 }
