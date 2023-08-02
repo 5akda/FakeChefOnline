@@ -48,8 +48,3 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
-
-private object Versions {
-    const val CORE_KTX = "1.9.0"
-    const val COMPOSE_BOM = "2023.03.00"
-}

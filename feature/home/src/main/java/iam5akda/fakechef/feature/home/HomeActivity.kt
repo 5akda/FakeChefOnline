@@ -3,7 +3,6 @@ package iam5akda.fakechef.feature.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,16 +15,14 @@ class HomeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FakeChefTheme {
-                HomeNavigation(onClickStartGame = ::startGame)
+                HomeNavigation(ANIMATED_APP_NAME_REPETITION)
             }
         }
     }
 
-    private fun startGame() {
-        Toast.makeText(this, "Navigate to Game Activity", Toast.LENGTH_LONG).show()
-    }
-
     companion object {
+        private const val ANIMATED_APP_NAME_REPETITION = 3
+
         fun navigate(context: Context) {
             Intent(context, HomeActivity::class.java)
                 .also(context::startActivity)

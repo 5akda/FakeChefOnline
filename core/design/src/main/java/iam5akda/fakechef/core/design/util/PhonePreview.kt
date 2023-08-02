@@ -1,4 +1,4 @@
-package iam5akda.fakechef.core.util
+package iam5akda.fakechef.core.design.util
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES

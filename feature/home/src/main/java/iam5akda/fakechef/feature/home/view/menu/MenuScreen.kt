@@ -14,7 +14,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,19 +27,19 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import iam5akda.fakechef.core.design.theme.FakeChefTheme
-import iam5akda.fakechef.core.util.PhonePreviewDayAndNight
+import iam5akda.fakechef.core.design.util.PhonePreviewDayAndNight
 import iam5akda.fakechef.feature.home.R
 
 @Composable
 internal fun MenuScreen(
     viewModel: MenuViewModel = hiltViewModel(),
     onClickCreateRoom: () -> Unit,
-    onClickHistory: (String) -> Unit,
+    onClickHistory: () -> Unit,
     onClickHelp: () -> Unit
 ) {
-    val animatedAppName by viewModel.animationStateFlow.collectAsStateWithLifecycle()
+    val animatedAppName = viewModel.animationStateFlow.collectAsStateWithLifecycle()
 
-    MenuLayoutContent(
+    MenuScreenLayout(
         animatedAppName = animatedAppName,
         onClickCreateRoom = onClickCreateRoom,
         onClickHistory = onClickHistory,
@@ -46,10 +48,10 @@ internal fun MenuScreen(
 }
 
 @Composable
-private fun MenuLayoutContent(
-    animatedAppName: String,
+private fun MenuScreenLayout(
+    animatedAppName: State<String>,
     onClickCreateRoom: () -> Unit,
-    onClickHistory: (String) -> Unit,
+    onClickHistory: () -> Unit,
     onClickHelp: () -> Unit
 ) {
     Box(
@@ -57,13 +59,13 @@ private fun MenuLayoutContent(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
     ) {
-        MenuAnimatedAppName(
+        AnimatedAppNameView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 64.dp),
-            animatedAppName = animatedAppName
+            animatedAppName = animatedAppName.value
         )
-        MenuFeatureSection(
+        FeatureSectionView(
             modifier = Modifier
                 .padding(horizontal = 24.dp, vertical = 32.dp)
                 .align(Alignment.BottomCenter),
@@ -75,7 +77,7 @@ private fun MenuLayoutContent(
 }
 
 @Composable
-private fun MenuAnimatedAppName(
+private fun AnimatedAppNameView(
     modifier: Modifier,
     animatedAppName: String
 ) {
@@ -90,10 +92,10 @@ private fun MenuAnimatedAppName(
 }
 
 @Composable
-private fun MenuFeatureSection(
+private fun FeatureSectionView(
     modifier: Modifier,
     onClickCreateRoom: () -> Unit,
-    onClickHistory: (String) -> Unit,
+    onClickHistory: () -> Unit,
     onClickHelp: () -> Unit
 ) {
     Column(modifier = modifier) {
@@ -118,7 +120,7 @@ private fun MenuFeatureSection(
             OutlinedButton(
                 modifier = Modifier
                     .weight(1f),
-                onClick = { onClickHistory.invoke("NOT FINISH") },
+                onClick = { onClickHistory.invoke() },
                 border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.primary)
             ) {
                 Text(
@@ -147,10 +149,11 @@ private fun MenuFeatureSection(
 
 @PhonePreviewDayAndNight
 @Composable
-private fun HomeScreenPreview() {
+private fun MenuScreenPreview() {
     FakeChefTheme {
-        MenuLayoutContent(
-            animatedAppName = "Fake Chef",
+        val appName = remember { mutableStateOf("Fake Chef") }
+        MenuScreenLayout(
+            animatedAppName = appName,
             onClickCreateRoom = {},
             onClickHistory = {},
             onClickHelp = {}

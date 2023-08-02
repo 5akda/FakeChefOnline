@@ -1,13 +1,30 @@
 package iam5akda.fakechef.feature.home.view.menu
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import iam5akda.fakechef.feature.home.repository.HomeRepository
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class MenuViewModel @Inject constructor() : ViewModel() {
+class MenuViewModel @Inject constructor(
+    repository: HomeRepository,
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
-    val animationStateFlow: StateFlow<String> = MutableStateFlow("Fake Chef")
+    private val animationRepetition: Int by lazy {
+        savedStateHandle["repetition"] ?: 1
+    }
+
+    val animationStateFlow: StateFlow<String> = repository
+        .getAnimatedAppName(animationRepetition)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Lazily,
+            initialValue = ""
+        )
 }
