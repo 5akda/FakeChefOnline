@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import iam5akda.fakechef.feature.home.view.menu.MenuScreen
+import iam5akda.fakechef.feature.home.view.menu.HomeMenuScreen
 
 @Composable
 internal fun HomeNavigation(animatedAppNameRepetition: Int) {
@@ -31,7 +31,7 @@ internal fun HomeNavigation(animatedAppNameRepetition: Int) {
                 }
             )
         ) {
-            MenuScreen(
+            HomeMenuScreen(
                 onClickCreateRoom = context::directionToGame,
                 onClickHistory = navController::directionToHistory,
                 onClickHelp = navController::directionToHelp

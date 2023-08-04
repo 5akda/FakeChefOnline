@@ -28,7 +28,8 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:${Versions.CORE_KTX}")
+
+implementation("androidx.core:core-ktx:${Versions.CORE_KTX}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE_RUNTIME_KTS}")
 
     implementation("com.google.dagger:hilt-android:${Versions.DAGGER_HILT}")
