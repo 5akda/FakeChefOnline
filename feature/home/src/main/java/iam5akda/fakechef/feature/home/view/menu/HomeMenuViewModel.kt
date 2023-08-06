@@ -16,25 +16,15 @@ class HomeMenuViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _appName = MutableStateFlow("")
-    val appName: StateFlow<String> = _appName
-
-    /*
-    val animationStateFlow: StateFlow<String> = repository
-        .getAnimatedAppName(savedStateHandle["repetition"] ?: 1)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = ""
-        )
-     */
+    private val _appNameStateFlow = MutableStateFlow("")
+    val appNameStateFlow: StateFlow<String> = _appNameStateFlow
 
     fun startAppNameAnimation() = viewModelScope.launch {
-        if (_appName.value.isEmpty()) {
+        if (_appNameStateFlow.value.isEmpty()) {
             val repetition = savedStateHandle["repetition"] ?: 1
             repository.getAnimatedAppName(repetition)
                 .collect {
-                    _appName.value = it
+                    _appNameStateFlow.value = it
                 }
         }
     }
