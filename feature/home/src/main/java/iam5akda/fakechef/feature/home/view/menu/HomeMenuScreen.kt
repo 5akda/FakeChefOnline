@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,15 +32,20 @@ import iam5akda.fakechef.core.design.util.PhonePreviewDayAndNight
 import iam5akda.fakechef.feature.home.R
 
 @Composable
-internal fun MenuScreen(
-    viewModel: MenuViewModel = hiltViewModel(),
+internal fun HomeMenuScreen(
+    viewModel: HomeMenuViewModel = hiltViewModel(),
     onClickCreateRoom: () -> Unit,
     onClickHistory: () -> Unit,
     onClickHelp: () -> Unit
 ) {
-    val animatedAppName = viewModel.animationStateFlow.collectAsStateWithLifecycle()
+    // val animatedAppName = viewModel.animationStateFlow.collectAsStateWithLifecycle()
+    val animatedAppName = viewModel.appName.collectAsStateWithLifecycle()
 
-    MenuScreenLayout(
+    LaunchedEffect(Unit) {
+        viewModel.startAppNameAnimation()
+    }
+
+    HomeMenuScreenLayout(
         animatedAppName = animatedAppName,
         onClickCreateRoom = onClickCreateRoom,
         onClickHistory = onClickHistory,
@@ -48,7 +54,7 @@ internal fun MenuScreen(
 }
 
 @Composable
-private fun MenuScreenLayout(
+private fun HomeMenuScreenLayout(
     animatedAppName: State<String>,
     onClickCreateRoom: () -> Unit,
     onClickHistory: () -> Unit,
@@ -152,7 +158,7 @@ private fun FeatureSectionView(
 private fun MenuScreenPreview() {
     FakeChefTheme {
         val appName = remember { mutableStateOf("Fake Chef") }
-        MenuScreenLayout(
+        HomeMenuScreenLayout(
             animatedAppName = appName,
             onClickCreateRoom = {},
             onClickHistory = {},

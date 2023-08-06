@@ -59,7 +59,6 @@ dependencies {
 
     androidTestImplementation(platform("androidx.compose:compose-bom:${Versions.COMPOSE_BOM}"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
@@ -71,11 +70,11 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:${Versions.DAGGER_HILT}")
 
     implementation("androidx.navigation:navigation-compose:${Versions.NAVIGATION_COMPOSE}")
-
     implementation("androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION_COMPOSE}")
 
     implementation(project(":core:design"))
     implementation(project(":core:common"))
+    implementation(project(":core:realtime"))
 }
 
 kapt {

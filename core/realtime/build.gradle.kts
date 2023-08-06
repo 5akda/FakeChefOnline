@@ -1,35 +1,20 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
-    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "iam5akda.fakechef.online"
+    namespace = "iam5akda.fakechef.core.realtime"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "iam5akda.fakechef.online"
         minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {
@@ -38,11 +23,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
     }
 }
 
@@ -54,10 +34,8 @@ dependencies {
     implementation("com.google.dagger:hilt-android:${Versions.DAGGER_HILT}")
     kapt("com.google.dagger:hilt-android-compiler:${Versions.DAGGER_HILT}")
 
-    implementation("androidx.core:core-splashscreen:${Versions.SPLASH_SCREEN}")
-
-    implementation(project(":core:design"))
-    implementation(project(":feature:home"))
+    implementation(platform("com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"))
+    implementation("com.google.firebase:firebase-database-ktx")
 }
 
 kapt {
