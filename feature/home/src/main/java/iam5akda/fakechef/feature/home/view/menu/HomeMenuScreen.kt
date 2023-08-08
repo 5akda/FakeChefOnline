@@ -1,25 +1,28 @@
 package iam5akda.fakechef.feature.home.view.menu
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -38,8 +41,8 @@ internal fun HomeMenuScreen(
     onClickHistory: () -> Unit,
     onClickHelp: () -> Unit
 ) {
-    // val animatedAppName = viewModel.animationStateFlow.collectAsStateWithLifecycle()
-    val animatedAppName = viewModel.appName.collectAsStateWithLifecycle()
+
+    val animatedAppName by viewModel.appNameStateFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.startAppNameAnimation()
@@ -55,12 +58,12 @@ internal fun HomeMenuScreen(
 
 @Composable
 private fun HomeMenuScreenLayout(
-    animatedAppName: State<String>,
+    animatedAppName: String,
     onClickCreateRoom: () -> Unit,
     onClickHistory: () -> Unit,
     onClickHelp: () -> Unit
 ) {
-    Box(
+    BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
@@ -68,8 +71,9 @@ private fun HomeMenuScreenLayout(
         AnimatedAppNameView(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 64.dp),
-            animatedAppName = animatedAppName.value
+                .padding(top = 64.dp)
+                .align(Alignment.TopCenter),
+            animatedAppName = animatedAppName
         )
         FeatureSectionView(
             modifier = Modifier
@@ -78,6 +82,14 @@ private fun HomeMenuScreenLayout(
             onClickCreateRoom = onClickCreateRoom,
             onClickHistory = onClickHistory,
             onClickHelp = onClickHelp
+        )
+        Image(
+            modifier = Modifier
+                .height(256.dp)
+                .width(256.dp)
+                .align(Alignment.Center),
+            painter = painterResource(id = iam5akda.fakechef.core.design.R.drawable.ic_menu_nachos),
+            contentDescription = null
         )
     }
 }
@@ -93,7 +105,7 @@ private fun AnimatedAppNameView(
         textAlign = TextAlign.Center,
         fontFamily = FontFamily.Cursive,
         color = MaterialTheme.colorScheme.tertiary,
-        style = MaterialTheme.typography.headlineLarge,
+        style = MaterialTheme.typography.displayMedium,
     )
 }
 
@@ -150,6 +162,16 @@ private fun FeatureSectionView(
                 )
             }
         }
+        Text(
+            modifier = Modifier
+                .padding(top = 24.dp)
+                .fillMaxWidth()
+                .alpha(0.2f),
+            text = stringResource(id = R.string.credit),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurface
+        )
     }
 }
 
@@ -157,9 +179,8 @@ private fun FeatureSectionView(
 @Composable
 private fun MenuScreenPreview() {
     FakeChefTheme {
-        val appName = remember { mutableStateOf("Fake Chef") }
         HomeMenuScreenLayout(
-            animatedAppName = appName,
+            animatedAppName = ("Fake Chef"),
             onClickCreateRoom = {},
             onClickHistory = {},
             onClickHelp = {}
