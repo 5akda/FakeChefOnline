@@ -15,9 +15,21 @@ class HomeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FakeChefTheme {
-                HomeNavigation(ANIMATED_APP_NAME_REPETITION)
+                HomeNavigation(
+                    animatedAppNameRepetition = ANIMATED_APP_NAME_REPETITION,
+                    onClickCreateRoom = ::navigateToGameActivity,
+                    onClickRateAndReview = ::requestInAppReview
+                )
             }
         }
+    }
+
+    private fun requestInAppReview() {
+        //TODO("Implement In-App Review API")
+    }
+
+    private fun navigateToGameActivity() {
+        //TODO("Implement Game Activity")
     }
 
     companion object {
