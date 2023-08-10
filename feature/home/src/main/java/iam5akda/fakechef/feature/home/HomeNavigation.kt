@@ -1,10 +1,7 @@
 package iam5akda.fakechef.feature.home
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -14,9 +11,12 @@ import androidx.navigation.navArgument
 import iam5akda.fakechef.feature.home.view.menu.HomeMenuScreen
 
 @Composable
-internal fun HomeNavigation(animatedAppNameRepetition: Int) {
+internal fun HomeNavigation(
+    animatedAppNameRepetition: Int,
+    onClickCreateRoom: () -> Unit,
+    onClickRateAndReview: () -> Unit,
+) {
     val navController = rememberNavController()
-    val context = LocalContext.current
 
     NavHost(
         navController = navController,
@@ -32,34 +32,20 @@ internal fun HomeNavigation(animatedAppNameRepetition: Int) {
             )
         ) {
             HomeMenuScreen(
-                onClickCreateRoom = context::directionToGame,
-                onClickHistory = navController::directionToHistory,
-                onClickHelp = navController::directionToHelp
+                onClickCreateRoom = onClickCreateRoom,
+                onClickHistory = navController.directionToHistory(),
+                onClickRateAndReview = onClickRateAndReview
             )
         }
 
         composable(
             route = "history"
         ) {
-            Text(text = "under construction")
-        }
-
-        composable(
-            route = "help"
-        ) {
-            Text(text = "under construction")
+            Text(text = "coming soon")
         }
     }
 }
 
-private fun NavController.directionToHistory() {
+private fun NavController.directionToHistory(): () -> Unit = {
     this.navigate("history")
-}
-
-private fun NavController.directionToHelp() {
-    this.navigate("help")
-}
-
-private fun Context.directionToGame() {
-    Toast.makeText(this, "currently working :)", Toast.LENGTH_SHORT).show()
 }
