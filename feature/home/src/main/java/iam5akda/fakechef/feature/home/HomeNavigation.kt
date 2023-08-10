@@ -1,7 +1,10 @@
 package iam5akda.fakechef.feature.home
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -11,12 +14,9 @@ import androidx.navigation.navArgument
 import iam5akda.fakechef.feature.home.view.menu.HomeMenuScreen
 
 @Composable
-internal fun HomeNavigation(
-    animatedAppNameRepetition: Int,
-    onClickCreateRoom: () -> Unit,
-    onClickRateAndReview: () -> Unit,
-) {
+internal fun HomeNavigation(animatedAppNameRepetition: Int) {
     val navController = rememberNavController()
+    val context = LocalContext.current
 
     NavHost(
         navController = navController,
@@ -32,20 +32,34 @@ internal fun HomeNavigation(
             )
         ) {
             HomeMenuScreen(
-                onClickCreateRoom = onClickCreateRoom,
-                onClickHistory = navController.directionToHistory(),
-                onClickRateAndReview = onClickRateAndReview
+                onClickCreateRoom = context::directionToGame,
+                onClickHistory = navController::directionToHistory,
+                onClickHelp = navController::directionToHelp
             )
         }
 
         composable(
             route = "history"
         ) {
-            Text(text = "coming soon")
+            Text(text = "under construction")
+        }
+
+        composable(
+            route = "help"
+        ) {
+            Text(text = "under construction")
         }
     }
 }
 
-private fun NavController.directionToHistory(): () -> Unit = {
+private fun NavController.directionToHistory() {
     this.navigate("history")
+}
+
+private fun NavController.directionToHelp() {
+    this.navigate("help")
+}
+
+private fun Context.directionToGame() {
+    Toast.makeText(this, "currently working :)", Toast.LENGTH_SHORT).show()
 }

@@ -7,19 +7,18 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -40,30 +39,29 @@ internal fun HomeMenuScreen(
     viewModel: HomeMenuViewModel = hiltViewModel(),
     onClickCreateRoom: () -> Unit,
     onClickHistory: () -> Unit,
-    onClickRateAndReview: () -> Unit
+    onClickHelp: () -> Unit
 ) {
-    val animatedAppNameState = viewModel.appNameStateFlow.collectAsStateWithLifecycle()
+
+    val animatedAppName by viewModel.appNameStateFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.startAppNameAnimation()
     }
 
     HomeMenuScreenLayout(
-        animatedAppNameState = animatedAppNameState,
-        foodImageResId = viewModel.getFoodImageResId(),
+        animatedAppName = animatedAppName,
         onClickCreateRoom = onClickCreateRoom,
         onClickHistory = onClickHistory,
-        onClickRateAndReview = onClickRateAndReview
+        onClickHelp = onClickHelp
     )
 }
 
 @Composable
 private fun HomeMenuScreenLayout(
-    animatedAppNameState: State<String>,
-    foodImageResId: Int,
+    animatedAppName: String,
     onClickCreateRoom: () -> Unit,
     onClickHistory: () -> Unit,
-    onClickRateAndReview: () -> Unit
+    onClickHelp: () -> Unit
 ) {
     BoxWithConstraints(
         modifier = Modifier
@@ -75,7 +73,7 @@ private fun HomeMenuScreenLayout(
                 .fillMaxWidth()
                 .padding(top = 64.dp)
                 .align(Alignment.TopCenter),
-            animatedAppName = animatedAppNameState
+            animatedAppName = animatedAppName
         )
         FeatureSectionView(
             modifier = Modifier
@@ -83,30 +81,27 @@ private fun HomeMenuScreenLayout(
                 .align(Alignment.BottomCenter),
             onClickCreateRoom = onClickCreateRoom,
             onClickHistory = onClickHistory,
-            onClickRateAndReview = onClickRateAndReview
+            onClickHelp = onClickHelp
         )
-        if (maxHeight / maxWidth > 1.6f) {
-            Image(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(horizontal = 72.dp)
-                    .fillMaxWidth()
-                    .aspectRatio(1f),
-                painter = painterResource(id = foodImageResId),
-                contentDescription = null
-            )
-        }
+        Image(
+            modifier = Modifier
+                .height(256.dp)
+                .width(256.dp)
+                .align(Alignment.Center),
+            painter = painterResource(id = iam5akda.fakechef.core.design.R.drawable.ic_menu_nachos),
+            contentDescription = null
+        )
     }
 }
 
 @Composable
 private fun AnimatedAppNameView(
     modifier: Modifier,
-    animatedAppName: State<String>
+    animatedAppName: String
 ) {
     Text(
         modifier = modifier,
-        text = animatedAppName.value,
+        text = animatedAppName,
         textAlign = TextAlign.Center,
         fontFamily = FontFamily.Cursive,
         color = MaterialTheme.colorScheme.tertiary,
@@ -119,7 +114,7 @@ private fun FeatureSectionView(
     modifier: Modifier,
     onClickCreateRoom: () -> Unit,
     onClickHistory: () -> Unit,
-    onClickRateAndReview: () -> Unit
+    onClickHelp: () -> Unit
 ) {
     Column(modifier = modifier) {
         Button(
@@ -156,13 +151,13 @@ private fun FeatureSectionView(
             OutlinedButton(
                 modifier = Modifier
                     .weight(1f),
-                onClick = onClickRateAndReview,
+                onClick = onClickHelp,
                 border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.primary)
             ) {
                 Text(
                     modifier = Modifier
                         .padding(vertical = 2.dp),
-                    text = stringResource(id = R.string.rate_and_review),
+                    text = stringResource(id = R.string.help),
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -185,11 +180,10 @@ private fun FeatureSectionView(
 private fun MenuScreenPreview() {
     FakeChefTheme {
         HomeMenuScreenLayout(
-            animatedAppNameState = remember { mutableStateOf("Fake Chef") },
-            foodImageResId = iam5akda.fakechef.core.design.R.drawable.ic_menu_burger,
+            animatedAppName = ("Fake Chef"),
             onClickCreateRoom = {},
             onClickHistory = {},
-            onClickRateAndReview = {}
+            onClickHelp = {}
         )
     }
 }
