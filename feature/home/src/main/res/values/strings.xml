@@ -2,6 +2,6 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="play">PLAY!</string>
     <string name="history">HISTORY</string>
-    <string name="rate_and_review">RATE &amp; REVIEW</string>
+    <string name="help">HELP</string>
     <string name="credit">Github.com/5akda/FakeChefOnline</string>
 </resources>
