@@ -8,16 +8,15 @@ plugins {
 
 android {
     namespace = "iam5akda.fakechef.online"
-    compileSdk = 33
+    compileSdk = Configs.COMPILE_SDK_VER
 
     defaultConfig {
         applicationId = "iam5akda.fakechef.online"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Configs.MIN_SDK_VER
+        targetSdk = Configs.COMPILE_SDK_VER
+        versionCode = Configs.VERSION_CODE
+        versionName = Configs.VERSION_NAME
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -25,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

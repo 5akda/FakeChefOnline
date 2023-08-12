@@ -21,7 +21,7 @@ class HomeMenuViewModel @Inject constructor(
     val appNameStateFlow: StateFlow<String> = _appNameStateFlow
 
     fun startAppNameAnimation() = viewModelScope.launch {
-        if (true) {
+        if (_appNameStateFlow.value.isEmpty()) {
             val repetition = savedStateHandle["repetition"] ?: 1
             repository.getAnimatedAppName(repetition)
                 .collect {

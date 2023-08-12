@@ -7,12 +7,11 @@ plugins {
 
 android {
     namespace = "iam5akda.fakechef.feature.home"
-    compileSdk = 33
+    compileSdk = Configs.COMPILE_SDK_VER
 
     defaultConfig {
-        minSdk = 24
+        minSdk = Configs.MIN_SDK_VER
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -20,7 +19,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
         }
     }
     compileOptions {
@@ -57,13 +56,8 @@ dependencies {
     implementation("androidx.compose.material3:material3")
 
     androidTestImplementation(platform("androidx.compose:compose-bom:${Versions.COMPOSE_BOM}"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
-    testImplementation("junit:junit:${Versions.JUNIT}")
-    androidTestImplementation("androidx.test.ext:junit:${Versions.ANDROID_JUNIT}")
-    androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.ESPRESSO_CORE}")
 
     implementation("com.google.dagger:hilt-android:${Versions.DAGGER_HILT}")
     kapt("com.google.dagger:hilt-android-compiler:${Versions.DAGGER_HILT}")
