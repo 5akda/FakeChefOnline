@@ -1,7 +1,7 @@
 package iam5akda.fakechef.feature.home.repository
 
 import iam5akda.fakechef.core.common.annotation.IODispatcher
-import iam5akda.fakechef.core.common.flow.flowWithContext
+import iam5akda.fakechef.core.common.extension.createFlow
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -25,7 +25,7 @@ class HomeAnimationSource @Inject constructor(
             "  Fake Chef",
             " Fake Chef ",
         )
-        return flowWithContext(dispatcher) {
+        return dispatcher.createFlow {
             repeat(repetition * frame.size) {
                 emit(frame[it % frame.size])
                 delay(FRAME_DELAY)

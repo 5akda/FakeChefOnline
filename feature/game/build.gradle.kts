@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "iam5akda.fakechef.feature.home"
+    namespace = "iam5akda.fakechef.feature.game"
     compileSdk = Configs.COMPILE_SDK_VER
 
     defaultConfig {

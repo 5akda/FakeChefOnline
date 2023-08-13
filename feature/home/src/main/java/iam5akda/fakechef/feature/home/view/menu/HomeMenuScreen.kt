@@ -50,7 +50,7 @@ internal fun HomeMenuScreen(
 
     HomeMenuScreenLayout(
         animatedAppNameState = animatedAppNameState,
-        foodImageResId = viewModel.getFoodImageResId(),
+        foodImageResId = viewModel.foodImageResId,
         onClickCreateRoom = onClickCreateRoom,
         onClickHistory = onClickHistory,
         onClickRateAndReview = onClickRateAndReview
@@ -110,7 +110,7 @@ private fun AnimatedAppNameView(
         textAlign = TextAlign.Center,
         fontFamily = FontFamily.Cursive,
         color = MaterialTheme.colorScheme.tertiary,
-        style = MaterialTheme.typography.displayMedium,
+        style = MaterialTheme.typography.displayLarge,
     )
 }
 
@@ -143,7 +143,7 @@ private fun FeatureSectionView(
             OutlinedButton(
                 modifier = Modifier
                     .weight(1f),
-                onClick = { onClickHistory.invoke() },
+                onClick = onClickHistory,
                 border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.primary)
             ) {
                 Text(

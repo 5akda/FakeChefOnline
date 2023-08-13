@@ -17,6 +17,8 @@ class HomeMenuViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    val foodImageResId by lazy { randomFoodImageResId() }
+
     private val _appNameStateFlow = MutableStateFlow("")
     val appNameStateFlow: StateFlow<String> = _appNameStateFlow
 
@@ -30,7 +32,7 @@ class HomeMenuViewModel @Inject constructor(
         }
     }
 
-    fun getFoodImageResId(): Int {
+    private fun randomFoodImageResId(): Int {
         return listOf(
             R.drawable.ic_menu_burger,
             R.drawable.ic_menu_pizza,

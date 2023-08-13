@@ -7,12 +7,16 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import iam5akda.fakechef.feature.home.HomeActivity
+import iam5akda.fakechef.core.common.facade.HomeModuleFacade
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : FragmentActivity() {
+
+    @Inject
+    lateinit var homeModuleFacade: HomeModuleFacade
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen().also {
@@ -25,8 +29,8 @@ class MainActivity : FragmentActivity() {
     private fun processCheckApp() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                delay(1500L)
-                HomeActivity.navigate(this@MainActivity)
+                delay(1000L)
+                homeModuleFacade.navigate(this@MainActivity)
                 finish()
             }
         }

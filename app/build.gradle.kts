@@ -56,7 +56,9 @@ dependencies {
     implementation("androidx.core:core-splashscreen:${Versions.SPLASH_SCREEN}")
 
     implementation(project(":core:design"))
+    implementation(project(":core:common"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:game"))
 }
 
 kapt {
