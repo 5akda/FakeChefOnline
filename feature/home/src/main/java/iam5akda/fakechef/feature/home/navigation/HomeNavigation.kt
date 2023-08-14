@@ -1,51 +1,34 @@
 package iam5akda.fakechef.feature.home.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import iam5akda.fakechef.feature.home.view.menu.HomeMenuScreen
+import iam5akda.fakechef.feature.home.view.history.composeHistoryScreen
+import iam5akda.fakechef.feature.home.view.menu.HomeMenuArgs
+import iam5akda.fakechef.feature.home.view.menu.composeMenuScreen
 
 @Composable
 internal fun HomeNavigation(
-    animatedAppNameRepetition: Int,
-    onClickCreateRoom: () -> Unit,
+    onClickPlay: () -> Unit,
     onClickRateAndReview: () -> Unit,
 ) {
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
-        startDestination = "menu/{repetition}",
+        startDestination = "menu/{${HomeMenuArgs.repetition.name}}",
     ) {
-        composable(
-            route = "menu/{repetition}",
-            arguments = listOf(
-                navArgument("repetition") {
-                    type = NavType.IntType
-                    defaultValue = animatedAppNameRepetition
-                }
-            )
-        ) {
-            HomeMenuScreen(
-                onClickCreateRoom = onClickCreateRoom,
-                onClickHistory = navController.directionToHistory(),
-                onClickRateAndReview = onClickRateAndReview
-            )
-        }
+        composeMenuScreen(
+            onClickPlay = onClickPlay,
+            onClickHistory = navController::directionToHistory,
+            onClickRateAndReview = onClickRateAndReview
+        )
 
-        composable(
-            route = "history"
-        ) {
-            Text(text = "coming soon")
-        }
+        composeHistoryScreen()
     }
 }
 
-private fun NavController.directionToHistory(): () -> Unit = {
-    this.navigate("history")
+private fun NavController.directionToHistory() {
+    navigate("history")
 }
