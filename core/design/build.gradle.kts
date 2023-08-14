@@ -5,15 +5,19 @@ plugins {
 
 android {
     namespace = "iam5akda.fakechef.core.design"
-    compileSdk = 33
+    compileSdk = Configs.COMPILE_SDK_VER
 
     defaultConfig {
-        minSdk = 24
+        minSdk = Configs.MIN_SDK_VER
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -40,9 +44,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-
-    androidTestImplementation(platform("androidx.compose:compose-bom:${Versions.COMPOSE_BOM}"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

@@ -6,10 +6,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
+import iam5akda.fakechef.core.common.facade.GameModuleFacade
 import iam5akda.fakechef.core.design.theme.FakeChefTheme
+import iam5akda.fakechef.feature.home.navigation.HomeNavigation
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var gameModuleFacade: GameModuleFacade
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,15 +35,12 @@ class HomeActivity : ComponentActivity() {
     }
 
     private fun navigateToGameActivity() {
-        //TODO("Implement Game Activity")
+        gameModuleFacade.navigate(this)
     }
 
     companion object {
         private const val ANIMATED_APP_NAME_REPETITION = 3
 
-        fun navigate(context: Context) {
-            Intent(context, HomeActivity::class.java)
-                .also(context::startActivity)
-        }
+        fun getIntent(context: Context) = Intent(context, HomeActivity::class.java)
     }
 }

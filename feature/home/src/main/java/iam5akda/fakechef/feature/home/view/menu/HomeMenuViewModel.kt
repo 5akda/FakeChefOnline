@@ -17,11 +17,13 @@ class HomeMenuViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    val foodImageResId by lazy { randomFoodImageResId() }
+
     private val _appNameStateFlow = MutableStateFlow("")
     val appNameStateFlow: StateFlow<String> = _appNameStateFlow
 
     fun startAppNameAnimation() = viewModelScope.launch {
-        if (true) {
+        if (_appNameStateFlow.value.isEmpty()) {
             val repetition = savedStateHandle["repetition"] ?: 1
             repository.getAnimatedAppName(repetition)
                 .collect {
@@ -30,7 +32,7 @@ class HomeMenuViewModel @Inject constructor(
         }
     }
 
-    fun getFoodImageResId(): Int {
+    private fun randomFoodImageResId(): Int {
         return listOf(
             R.drawable.ic_menu_burger,
             R.drawable.ic_menu_pizza,

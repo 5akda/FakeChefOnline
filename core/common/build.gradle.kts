@@ -7,15 +7,19 @@ plugins {
 
 android {
     namespace = "iam5akda.fakechef.core.common"
-    compileSdk = 33
+    compileSdk = Configs.COMPILE_SDK_VER
 
     defaultConfig {
-        minSdk = 24
+        minSdk = Configs.MIN_SDK_VER
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -29,7 +33,7 @@ android {
 
 dependencies {
 
-implementation("androidx.core:core-ktx:${Versions.CORE_KTX}")
+    implementation("androidx.core:core-ktx:${Versions.CORE_KTX}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE_RUNTIME_KTS}")
 
     implementation("com.google.dagger:hilt-android:${Versions.DAGGER_HILT}")

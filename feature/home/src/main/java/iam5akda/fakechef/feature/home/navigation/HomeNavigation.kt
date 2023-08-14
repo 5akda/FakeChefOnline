@@ -1,4 +1,4 @@
-package iam5akda.fakechef.feature.home
+package iam5akda.fakechef.feature.home.navigation
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

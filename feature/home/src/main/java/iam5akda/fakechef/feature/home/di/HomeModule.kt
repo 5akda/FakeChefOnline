@@ -4,7 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import iam5akda.fakechef.core.common.facade.HomeModuleFacade
+import iam5akda.fakechef.feature.home.navigation.HomeModuleFacadeImpl
 import iam5akda.fakechef.feature.home.repository.HomeAnimationSource
 import iam5akda.fakechef.feature.home.repository.HomeRepository
 
@@ -13,8 +14,12 @@ import iam5akda.fakechef.feature.home.repository.HomeRepository
 object HomeModule {
 
     @Provides
-    @ActivityRetainedScoped
     fun provideRepository(
         animationSource: HomeAnimationSource
     ): HomeRepository = animationSource
+
+    @Provides
+    fun provideModuleFacade(
+        homeModuleFacadeImpl: HomeModuleFacadeImpl
+    ): HomeModuleFacade = homeModuleFacadeImpl
 }
