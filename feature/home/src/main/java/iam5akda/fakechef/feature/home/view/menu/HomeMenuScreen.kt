@@ -38,7 +38,7 @@ import iam5akda.fakechef.feature.home.R
 @Composable
 internal fun HomeMenuScreen(
     viewModel: HomeMenuViewModel = hiltViewModel(),
-    onClickCreateRoom: () -> Unit,
+    onClickPlay: () -> Unit,
     onClickHistory: () -> Unit,
     onClickRateAndReview: () -> Unit
 ) {
@@ -51,7 +51,7 @@ internal fun HomeMenuScreen(
     HomeMenuScreenLayout(
         animatedAppNameState = animatedAppNameState,
         foodImageResId = viewModel.foodImageResId,
-        onClickCreateRoom = onClickCreateRoom,
+        onClickPlay = onClickPlay,
         onClickHistory = onClickHistory,
         onClickRateAndReview = onClickRateAndReview
     )
@@ -61,7 +61,7 @@ internal fun HomeMenuScreen(
 private fun HomeMenuScreenLayout(
     animatedAppNameState: State<String>,
     foodImageResId: Int,
-    onClickCreateRoom: () -> Unit,
+    onClickPlay: () -> Unit,
     onClickHistory: () -> Unit,
     onClickRateAndReview: () -> Unit
 ) {
@@ -81,7 +81,7 @@ private fun HomeMenuScreenLayout(
             modifier = Modifier
                 .padding(horizontal = 24.dp, vertical = 32.dp)
                 .align(Alignment.BottomCenter),
-            onClickCreateRoom = onClickCreateRoom,
+            onClickPlay = onClickPlay,
             onClickHistory = onClickHistory,
             onClickRateAndReview = onClickRateAndReview
         )
@@ -117,7 +117,7 @@ private fun AnimatedAppNameView(
 @Composable
 private fun FeatureSectionView(
     modifier: Modifier,
-    onClickCreateRoom: () -> Unit,
+    onClickPlay: () -> Unit,
     onClickHistory: () -> Unit,
     onClickRateAndReview: () -> Unit
 ) {
@@ -125,7 +125,7 @@ private fun FeatureSectionView(
         Button(
             modifier = Modifier
                 .fillMaxWidth(),
-            onClick = onClickCreateRoom
+            onClick = onClickPlay
         ) {
             Text(
                 modifier = Modifier
@@ -182,12 +182,12 @@ private fun FeatureSectionView(
 
 @PhonePreviewDayAndNight
 @Composable
-private fun MenuScreenPreview() {
+private fun HomeMenuScreenPreview() {
     FakeChefTheme {
         HomeMenuScreenLayout(
             animatedAppNameState = remember { mutableStateOf("Fake Chef") },
             foodImageResId = iam5akda.fakechef.core.design.R.drawable.ic_menu_burger,
-            onClickCreateRoom = {},
+            onClickPlay = {},
             onClickHistory = {},
             onClickRateAndReview = {}
         )

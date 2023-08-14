@@ -22,8 +22,7 @@ class HomeActivity : ComponentActivity() {
         setContent {
             FakeChefTheme {
                 HomeNavigation(
-                    animatedAppNameRepetition = ANIMATED_APP_NAME_REPETITION,
-                    onClickCreateRoom = ::navigateToGameActivity,
+                    onClickPlay = ::navigateToGameActivity,
                     onClickRateAndReview = ::requestInAppReview
                 )
             }
@@ -39,8 +38,6 @@ class HomeActivity : ComponentActivity() {
     }
 
     companion object {
-        private const val ANIMATED_APP_NAME_REPETITION = 3
-
         fun getIntent(context: Context) = Intent(context, HomeActivity::class.java)
     }
 }

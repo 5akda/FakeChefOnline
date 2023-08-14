@@ -5,11 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.ui.res.stringResource
 import dagger.hilt.android.AndroidEntryPoint
 import iam5akda.fakechef.core.design.theme.FakeChefTheme
+import iam5akda.fakechef.feature.game.navigation.GameNavigation
 
 @AndroidEntryPoint
 class GameActivity : ComponentActivity() {
@@ -18,9 +16,7 @@ class GameActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FakeChefTheme {
-                Surface {
-                    Text(text = stringResource(id = R.string.title_activity_game))
-                }
+                GameNavigation()
             }
         }
     }
