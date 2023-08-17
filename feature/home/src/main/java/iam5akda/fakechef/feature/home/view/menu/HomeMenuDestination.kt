@@ -8,7 +8,7 @@ import androidx.navigation.navArgument
 internal fun NavGraphBuilder.composeMenuScreen(
     onClickPlay: () -> Unit,
     onClickHistory: () -> Unit,
-    onClickRateAndReview: () -> Unit
+    onClickAbout: () -> Unit
 ) {
     composable(
         route = "menu/{${HomeMenuArgs.repetition.name}}",
@@ -19,7 +19,7 @@ internal fun NavGraphBuilder.composeMenuScreen(
         HomeMenuScreen(
             onClickPlay = onClickPlay,
             onClickHistory = onClickHistory,
-            onClickRateAndReview = onClickRateAndReview
+            onClickAbout = onClickAbout
         )
     }
 }

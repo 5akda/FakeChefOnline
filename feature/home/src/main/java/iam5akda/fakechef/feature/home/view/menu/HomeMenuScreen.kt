@@ -40,7 +40,7 @@ internal fun HomeMenuScreen(
     viewModel: HomeMenuViewModel = hiltViewModel(),
     onClickPlay: () -> Unit,
     onClickHistory: () -> Unit,
-    onClickRateAndReview: () -> Unit
+    onClickAbout: () -> Unit
 ) {
     val animatedAppNameState = viewModel.appNameStateFlow.collectAsStateWithLifecycle()
 
@@ -53,7 +53,7 @@ internal fun HomeMenuScreen(
         foodImageResId = viewModel.foodImageResId,
         onClickPlay = onClickPlay,
         onClickHistory = onClickHistory,
-        onClickRateAndReview = onClickRateAndReview
+        onClickAbout = onClickAbout
     )
 }
 
@@ -63,7 +63,7 @@ private fun HomeMenuScreenLayout(
     foodImageResId: Int,
     onClickPlay: () -> Unit,
     onClickHistory: () -> Unit,
-    onClickRateAndReview: () -> Unit
+    onClickAbout: () -> Unit
 ) {
     BoxWithConstraints(
         modifier = Modifier
@@ -83,7 +83,7 @@ private fun HomeMenuScreenLayout(
                 .align(Alignment.BottomCenter),
             onClickPlay = onClickPlay,
             onClickHistory = onClickHistory,
-            onClickRateAndReview = onClickRateAndReview
+            onClickAbout = onClickAbout
         )
         if (maxHeight / maxWidth > 1.6f) {
             Image(
@@ -110,7 +110,7 @@ private fun AnimatedAppNameView(
         textAlign = TextAlign.Center,
         fontFamily = FontFamily.Cursive,
         color = MaterialTheme.colorScheme.tertiary,
-        style = MaterialTheme.typography.displayLarge,
+        style = MaterialTheme.typography.displayMedium,
     )
 }
 
@@ -119,7 +119,7 @@ private fun FeatureSectionView(
     modifier: Modifier,
     onClickPlay: () -> Unit,
     onClickHistory: () -> Unit,
-    onClickRateAndReview: () -> Unit
+    onClickAbout: () -> Unit
 ) {
     Column(modifier = modifier) {
         Button(
@@ -132,7 +132,7 @@ private fun FeatureSectionView(
                     .padding(vertical = 2.dp),
                 text = stringResource(id = R.string.play),
                 fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.titleLarge
             )
         }
         Row(
@@ -150,20 +150,22 @@ private fun FeatureSectionView(
                     modifier = Modifier
                         .padding(vertical = 2.dp),
                     text = stringResource(id = R.string.history),
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleSmall
                 )
             }
             OutlinedButton(
                 modifier = Modifier
                     .weight(1f),
-                onClick = onClickRateAndReview,
+                onClick = onClickAbout,
                 border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.primary)
             ) {
                 Text(
                     modifier = Modifier
                         .padding(vertical = 2.dp),
-                    text = stringResource(id = R.string.rate_and_review),
-                    fontWeight = FontWeight.Bold
+                    text = stringResource(id = R.string.about),
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleSmall
                 )
             }
         }
@@ -174,7 +176,7 @@ private fun FeatureSectionView(
                 .alpha(0.2f),
             text = stringResource(id = R.string.credit),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurface
         )
     }
@@ -189,7 +191,7 @@ private fun HomeMenuScreenPreview() {
             foodImageResId = iam5akda.fakechef.core.design.R.drawable.ic_menu_burger,
             onClickPlay = {},
             onClickHistory = {},
-            onClickRateAndReview = {}
+            onClickAbout = {}
         )
     }
 }
