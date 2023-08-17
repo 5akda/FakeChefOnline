@@ -11,7 +11,7 @@ import iam5akda.fakechef.feature.home.view.menu.composeMenuScreen
 @Composable
 internal fun HomeNavigation(
     onClickPlay: () -> Unit,
-    onClickRateAndReview: () -> Unit,
+    onClickAbout: () -> Unit,
 ) {
     val navController = rememberNavController()
 
@@ -22,7 +22,7 @@ internal fun HomeNavigation(
         composeMenuScreen(
             onClickPlay = onClickPlay,
             onClickHistory = navController::directionToHistory,
-            onClickRateAndReview = onClickRateAndReview
+            onClickAbout = onClickAbout
         )
 
         composeHistoryScreen()

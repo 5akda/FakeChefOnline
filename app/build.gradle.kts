@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -54,6 +55,10 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:${Versions.DAGGER_HILT}")
 
     implementation("androidx.core:core-splashscreen:${Versions.SPLASH_SCREEN}")
+
+    implementation(platform("com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     implementation(project(":core:design"))
     implementation(project(":core:common"))

@@ -2,6 +2,7 @@ package iam5akda.fakechef.feature.home
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,14 +24,15 @@ class HomeActivity : ComponentActivity() {
             FakeChefTheme {
                 HomeNavigation(
                     onClickPlay = ::navigateToGameActivity,
-                    onClickRateAndReview = ::requestInAppReview
+                    onClickAbout = ::openGithubWeb
                 )
             }
         }
     }
 
-    private fun requestInAppReview() {
-        //TODO("Implement In-App Review API")
+    private fun openGithubWeb() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_LINK))
+        startActivity(intent)
     }
 
     private fun navigateToGameActivity() {
@@ -38,6 +40,7 @@ class HomeActivity : ComponentActivity() {
     }
 
     companion object {
+        private const val GITHUB_LINK = "https://github.com/5akda/FakeChefOnline"
         fun getIntent(context: Context) = Intent(context, HomeActivity::class.java)
     }
 }

@@ -129,7 +129,7 @@ private fun GameRegisterScreenLayout(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp, vertical = 24.dp)
+                    .padding(horizontal = 24.dp, vertical = 32.dp)
                     .align(Alignment.BottomCenter),
                 onClick = {
                     onClickJoin.invoke(roomCodeText, yourNameText)
@@ -141,7 +141,7 @@ private fun GameRegisterScreenLayout(
                         .padding(vertical = 2.dp),
                     text = stringResource(id = R.string.button_join_room),
                     fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
         }
