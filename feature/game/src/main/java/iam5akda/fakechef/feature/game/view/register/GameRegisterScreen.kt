@@ -32,7 +32,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import iam5akda.fakechef.core.common.extension.lettersAndDigits
+import iam5akda.fakechef.core.common.extension.limitLength
+import iam5akda.fakechef.core.common.extension.onlyDigits
 import iam5akda.fakechef.core.design.theme.FakeChefTheme
 import iam5akda.fakechef.core.design.util.PhonePreviewDayAndNight
 import iam5akda.fakechef.feature.game.R
@@ -69,7 +70,7 @@ private fun GameRegisterScreenLayout(
                     modifier = Modifier
                         .fillMaxWidth(),
                     value = roomCodeText,
-                    onValueChange = { roomCodeText = it.lettersAndDigits() },
+                    onValueChange = { roomCodeText = it.onlyDigits() },
                     keyboardOptions = KeyboardOptions(
                         autoCorrect = false,
                         keyboardType = KeyboardType.Number,
@@ -98,10 +99,10 @@ private fun GameRegisterScreenLayout(
                         .fillMaxWidth()
                         .padding(top = 6.dp),
                     value = yourNameText,
-                    onValueChange = { yourNameText = it.lettersAndDigits() },
+                    onValueChange = { yourNameText = it.limitLength() },
                     keyboardOptions = KeyboardOptions(
                         autoCorrect = false,
-                        keyboardType = KeyboardType.Email,
+                        keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Done
                     ),
                     keyboardActions = KeyboardActions(

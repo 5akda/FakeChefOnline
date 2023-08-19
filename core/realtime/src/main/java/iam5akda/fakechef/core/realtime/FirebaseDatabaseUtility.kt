@@ -3,13 +3,13 @@ package iam5akda.fakechef.core.realtime
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference.CompletionListener
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class FirebaseDatabaseUtility @Inject constructor(
@@ -67,16 +67,26 @@ class FirebaseDatabaseUtility @Inject constructor(
     }
 
     override fun setRealtimeValue(reference: String, value: Any): Flow<Unit> {
-        return flow {
-            firebaseDatabase.getReference(reference).setValue(value)
-            emit(Unit)
+        return callbackFlow {
+            val listener = CompletionListener { error, _ ->
+                error?.let {
+                    close(it.toException())
+                } ?: trySendBlocking(Unit)
+            }
+            firebaseDatabase.getReference(reference).setValue(value, listener)
+            awaitClose()
         }
     }
 
     override fun removeRealtimeValue(reference: String): Flow<Unit> {
-        return flow {
-            firebaseDatabase.getReference(reference).removeValue()
-            emit(Unit)
+        return callbackFlow {
+            val listener = CompletionListener { error, _ ->
+                error?.let {
+                    close(it.toException())
+                } ?: trySendBlocking(Unit)
+            }
+            firebaseDatabase.getReference(reference).removeValue(listener)
+            awaitClose()
         }
     }
 }

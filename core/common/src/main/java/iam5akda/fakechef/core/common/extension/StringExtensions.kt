@@ -14,6 +14,11 @@ fun String?.uriDecode(): String {
     } ?: ""
 }
 
-fun String.lettersAndDigits(): String {
-    return this.filter { it.isLetterOrDigit() }
+fun String.limitLength(length: Int = 15): String {
+    val limitedString = this.take(length)
+    return "$limitedString\u200b"
+}
+
+fun String.onlyDigits(): String {
+    return this.filter { it.isDigit() }
 }

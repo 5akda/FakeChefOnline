@@ -2,6 +2,7 @@ package iam5akda.fakechef.feature.game.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import iam5akda.fakechef.core.common.extension.uriEncode
@@ -19,7 +20,9 @@ internal fun GameNavigation() {
         composeRegisterScreen(
             onClickJoin = navController::directionToLobby
         )
-        composeLobbyScreen()
+        composeLobbyScreen(
+            onBack = navController::backToRegister
+        )
     }
 }
 
@@ -27,4 +30,11 @@ private fun NavController.directionToLobby(room: String, name: String) {
     val encodedRoom = room.uriEncode()
     val encodedName = name.uriEncode()
     navigate("lobby/$encodedRoom/$encodedName")
+}
+
+private fun NavController.backToRegister() {
+    popBackStack(
+        destinationId = this.graph.findStartDestination().id,
+        inclusive = false
+    )
 }
